@@ -10,4 +10,18 @@ class Building extends Model
         'name',
         'image',
     ];
+
+    public function scopeFilter($building, $params)
+    {
+        $building->where(function ($building) use ($params) {
+            if (!empty($params['search'])) {
+                $building->where('name', 'like', '%' . $params['search'] . '%');
+            }
+        });
+    }
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
 }

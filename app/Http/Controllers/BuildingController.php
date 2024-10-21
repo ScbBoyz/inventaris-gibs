@@ -7,9 +7,14 @@ use Illuminate\Http\Request;
 
 class BuildingController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $buildings = Building::all();
+        $search = $request->input('search');
+
+        $buildings = Building::when($search, function($query, $search) {
+            return $query->where('name', 'like', "%{$search}%");
+        })->get();
+
         return view('pages.building.index', compact('buildings'));
     }
 
