@@ -12,10 +12,8 @@ class RoomController extends Controller
     {
         $building = Building::findOrFail($building_id);
 
-        // Mendapatkan parameter pencarian dari request
         $search = $request->input('search');
 
-        // Mengambil data rooms dengan filter
         $rooms = Room::where('building_id', $building_id)
             ->when($search, function ($query, $search) {
                 $query->where('name', 'like', "%{$search}%")
@@ -58,20 +56,18 @@ class RoomController extends Controller
         return view('pages.room.edit', compact('building', 'room'));
     }
 
-    public function update(Request $request, $building_id, $room_id)
+    public function update(Request $request, $buildingId, $roomId)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'number' => 'required|string|max:50',
+            'number' => 'required|string|max:255',
         ]);
 
-        $room = Room::findOrFail($room_id);
-        $room->name = $request->name;
-        $room->number = $request->number;
-        $room->save();
+        $room = Room::where('building_id', $buildingId)->where('id', $roomId)->firstOrFail();
 
-        return redirect()->route('room.index', $building_id)
-            ->with('success', 'Room updated successfully.');
+        $room->update($validated);
+
+        return redirect()->route('room.index', $buildingId)->with('success', 'Room updated successfully.');
     }
 
     public function destroy($building_id, $room_id)

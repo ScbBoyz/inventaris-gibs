@@ -25,7 +25,11 @@
                         <div class="p-4">
                             <div class="bg-white shadow-md rounded-lg p-4">
                                 <div class="flex flex-col">
-                                    <h3 class="text-xl font-semibold mb-2">{{ $room->name }}</h3>
+                                    <h3 class="font-semibold text-xl text-gray-800 leading-tight">
+                                        <a href="{{ route('inventory.index', ['building' => $building->id, 'room' => $room->id]) }}" class="text-blue-950 hover:underline">
+                                            {{ $room->name }}
+                                        </a>
+                                    </h3>
                                     <p class="text-gray-500 mb-4">{{ $room->number }}</p>
                                     <div class="flex space-x-4">
                                         <a href="{{ route('room.edit', [$building->id, $room->id]) }}" class="text-blue-950 hover:underline">Edit</a>
