@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 
 class InventoryController extends Controller
 {
-    // Menampilkan daftar inventaris
     public function index(Request $request, $building_id, $room_id)
     {
         $building = Building::findOrFail($building_id);
@@ -24,13 +23,12 @@ class InventoryController extends Controller
                     ->orWhere('bad', 'like', "%{$search}%")
                     ->orWhere('information', 'like', "%{$search}%");
             })
+            ->where('room_id', $room_id)
             ->get();
 
-        // Kirimkan data ke view
         return view('pages.inventory.index', compact('inventories', 'building', 'room', 'building_id', 'room_id'));
     }
 
-    // Menampilkan form untuk menambahkan inventaris
     public function create($building_id, $room_id)
     {
         $building = Building::findOrFail($building_id);
