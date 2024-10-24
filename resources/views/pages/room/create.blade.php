@@ -5,7 +5,7 @@
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                     Halaman Tambah Ruangan
                 </h2>
-                <div class="text-sm text-gray-500">Halaman untuk menambahkan Data Ruangan</div>
+                <div class="text-sm text-gray-500">Akses menu dan informasi penting lainnya di sini</div>
             </div>
             <div>
                 <a href="{{ route('room.index', $building->id) }}"

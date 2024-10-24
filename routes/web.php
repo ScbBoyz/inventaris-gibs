@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RecapController;
+use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\InventoryController;
@@ -57,6 +58,16 @@ Route::middleware('auth')->group(function () {
     // rekap
     Route::get('/recap', [RecapController::class, 'index'])->name('recap.index');
     Route::get('/recap/export', [RecapController::class, 'export'])->name('recap.export');
+
+    // petugas
+    Route::resource('officers', OfficerController::class);
+    Route::get('/officers', [OfficerController::class, 'index'])->name('officer.index');
+    Route::get('/officers/create', [OfficerController::class, 'create'])->name('officer.create');
+    Route::post('/officers', [OfficerController::class, 'store'])->name('officer.store');
+    Route::get('/officers/{officer}/edit', [OfficerController::class, 'edit'])->name('officer.edit');
+    Route::put('/officers/{officer}', [OfficerController::class, 'update'])->name('officer.update');
+    Route::delete('/officers/{officer}', [OfficerController::class, 'destroy'])->name('officer.destroy');
+
 });
 
 require __DIR__.'/auth.php';
