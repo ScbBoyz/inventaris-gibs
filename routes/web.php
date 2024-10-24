@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\RecapController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\InventoryController;
@@ -52,6 +53,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/items/{item}/edit', [ItemController::class, 'edit'])->name('item.edit');
     Route::put('/items/{item}', [ItemController::class, 'update'])->name('item.update');
     Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('item.destroy');
+
+    // rekap
+    Route::get('/recap', [RecapController::class, 'index'])->name('recap.index');
 
 });
 
