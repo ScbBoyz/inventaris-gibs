@@ -56,7 +56,7 @@ Route::middleware('auth')->group(function () {
 
     // rekap
     Route::get('/recap', [RecapController::class, 'index'])->name('recap.index');
-
+    Route::get('/recap/export', [RecapController::class, 'export'])->name('recap.export');
 });
 
 require __DIR__.'/auth.php';

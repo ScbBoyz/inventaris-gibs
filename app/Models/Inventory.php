@@ -12,6 +12,7 @@ class Inventory extends Model
     protected $table = 'inventories';
 
     protected $fillable = [
+        'room_id',
         'item_id',
         'quantity',
         'year',
@@ -25,5 +26,10 @@ class Inventory extends Model
     public function item()
     {
         return $this->belongsTo(Item::class, 'item_id');
+    }
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class, 'room_id');
     }
 }

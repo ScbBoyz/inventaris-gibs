@@ -55,6 +55,7 @@ class InventoryController extends Controller
         ]);
 
         Inventory::create([
+            'room_id' => $room_id,
             'item_id' => $request->item_id,
             'year' => $request->year,
             'good' => $request->good,
@@ -93,7 +94,15 @@ class InventoryController extends Controller
         ]);
 
         $inventory = Inventory::findOrFail($inventory_id);
-        $inventory->update($validated);
+        $inventory->update([
+            'room_id' => $room_id,
+            'item_id' => $validated['item_id'],
+            'year' => $validated['year'],
+            'good' => $validated['good'],
+            'not_good' => $validated['not_good'],
+            'bad' => $validated['bad'],
+            'quantity' => $validated
+        ]);
 
         return redirect()->route('inventory.index', ['building' => $building_id, 'room' => $room_id])
             ->with('success', 'Inventory updated successfully.');
